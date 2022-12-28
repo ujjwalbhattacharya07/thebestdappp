@@ -195,7 +195,7 @@ try{
             Want to deploy your Own ?
             <a
               className="font-semibold text-sky-700"
-              href="https://shardeum.org/blog/how-to-mint-your-cryptocurrency-on-shardeum-testnet/"
+              href="https://https://www.youtube.com/watch?v=dQw4w9WgXcQ"
             >
               Read docs
             </a>
