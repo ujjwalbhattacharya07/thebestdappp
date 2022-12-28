@@ -33,8 +33,8 @@ export default function Footer() {
             </a>
             <a
               rel="noopener noreferrer"
-              href="https://github.com/Shaileshkhote/Token-Generato"
-              title="Gmail"
+              href="https://github.com/ujjwalbhattacharya07/thebestdapp"
+              title="GitHub Repo"
               className="flex items-center justify-center w-8 h-8 rounded-full sm:w-10 sm:h-10 dark:bg-violet-400 dark:text-gray-900"
             >
               <BsGithub />
