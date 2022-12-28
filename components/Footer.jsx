@@ -10,7 +10,7 @@ export default function Footer() {
           <div className="flex justify-center space-x-4">
             <a
               rel="noopener noreferrer"
-              href="https://https://www.linkedin.com/in/g-pardhiv-varma-6230b2242/"
+              href="https://www.linkedin.com/in/shubham-kumar-30bba41b6/"
               title="Linkedin"
               className="flex items-center justify-center w-8 h-8 rounded-full sm:w-10 sm:h-10 dark:bg-violet-400 dark:text-gray-900"
             >
