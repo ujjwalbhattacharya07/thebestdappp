@@ -195,7 +195,7 @@ try{
             Want to deploy your Own ?
             <a
               className="font-semibold text-sky-700"
-              href="https://https://www.youtube.com/watch?v=dQw4w9WgXcQ"
+              href="https://en.wikipedia.org/wiki/Rickrolling"
             >
               Read docs
             </a>
