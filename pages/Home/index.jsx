@@ -27,7 +27,7 @@ const home = () => {
   })
   
   return (
-    <div className="bg-gray-700">
+    <div className="bg-cyan-900">
   
       <Header />
       <Creator/>
