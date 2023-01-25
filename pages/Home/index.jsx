@@ -5,7 +5,7 @@ import Footer from '../../components/Footer'
 import Creator from '../../components/Creator'
 import { useEffect, useState} from 'react'
 import React from 'react'
-import videoBg from '/assets/samp.mp4'
+import videoBg from '../assets/samp.mp4'
 
 
 
