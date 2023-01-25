@@ -6,8 +6,6 @@ import Creator from '../../components/Creator'
 import { useEffect, useState} from 'react'
 
 
-
-
 const home = () => {
 
   const [account, setAccount] = useState()
@@ -25,7 +23,7 @@ const home = () => {
 
 
   })
- 
+  
   return (
     <div className="bg-cyan-900">
   
@@ -37,4 +35,3 @@ const home = () => {
 }
 
 export default home
-
