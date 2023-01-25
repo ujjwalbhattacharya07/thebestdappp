@@ -25,15 +25,12 @@ const home = () => {
 
 
   })
-  
+function App() {
   return (
-    <div className="bg-cyan-900">
-  
-      <Header />
-      <Creator/>
-      <Footer/>
-  </div>
-  )
+    <div style={{ 
+      backgroundImage: `url("https://images.pexels.com/photos/2156881/pexels-photo-2156881.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2")` 
+    }}>
+    </div>
+  );
 }
-
 export default home
