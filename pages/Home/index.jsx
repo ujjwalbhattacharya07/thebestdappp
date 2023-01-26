@@ -35,7 +35,6 @@ function home() {
       overlayColor="rgba(0, 0, 0, 0.5)"
     >
     </VideoBackground>
-  );
+  )
 }
 export default home
-}
