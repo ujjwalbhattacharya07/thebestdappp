@@ -29,7 +29,7 @@ return (
 <div className="bg-cyan-900">
 <Head>
 <style>
-{ body { background-image: url(https://www.youtube.com/watch?v=-MKapbz0GIo&list=PPSV) background-size: cover; } }
+{ body { background-image: url(https://images.pexels.com/photos/2156881/pexels-photo-2156881.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2) background-size: cover; } }
 </style>
 </Head>
 <Header />
