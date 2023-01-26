@@ -29,7 +29,7 @@ return (
 <div className="bg-cyan-900">
 <Head>
 <style>
-{ body { background: url(https://youtu.be/-atkwqLq1js) no-repeat center center fixed; background-size: cover; } }
+{ body { background-image: url(https://www.youtube.com/watch?v=-MKapbz0GIo&list=PPSV) background-size: cover; } }
 </style>
 </Head>
 <Header />
