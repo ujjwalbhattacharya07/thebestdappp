@@ -4,6 +4,8 @@ import Header from '../../components/Header'
 import Footer from '../../components/Footer'
 import Creator from '../../components/Creator'
 import { useEffect, useState} from 'react'
+import React from 'react'
+import VideoBackground from 'react-video-background'
 
 
 
@@ -26,14 +28,14 @@ const home = () => {
 
   })
   
+function home() {
   return (
-    <div className="bg-cyan-900">
-  
-      <Header />
-      <Creator/>
-      <Footer/>
-  </div>
-  )
+    <VideoBackground
+      videoSrc="https://youtu.be/-MKapbz0GIo"
+      overlayColor="rgba(0, 0, 0, 0.5)"
+    >
+    </VideoBackground>
+  );
 }
 
-export default home
+export default home;
