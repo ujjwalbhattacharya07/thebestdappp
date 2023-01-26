@@ -25,15 +25,17 @@ const home = () => {
 
 
   })
-  
-  return (
-    <div className="bg-cyan-900">
-  
-      <Header />
-      <Creator/>
-      <Footer/>
-  </div>
-  )
+return (
+<div className="bg-cyan-900">
+<Head>
+<style>
+{ body { background: url(https://youtu.be/-atkwqLq1js) no-repeat center center fixed; background-size: cover; } }
+</style>
+</Head>
+<Header />
+<Creator />
+<Footer />
+</div>
+)
 }
-
 export default home
