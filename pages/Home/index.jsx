@@ -37,6 +37,5 @@ function home() {
     </VideoBackground>
   );
 }
-
 export default home
 }
