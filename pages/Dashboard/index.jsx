@@ -56,7 +56,7 @@ const dashboard = () => {
   }, [tokensCreated])
 
   return (
-    <div className="lg:h-screen h-full bg-cyan-900 bg-fixed">
+    <div className="min-h-screen bg-cyan-900 bg-fixed">
        {/* <ToastContainer /> */}
       <Header />
       <div className=' mt-16 flex justify-evenly flex-wrap w-full'>
