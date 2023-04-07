@@ -13,7 +13,7 @@ import Footer from '../../components/Footer'
 
 const dashboard = () => {
   const contractAddress = factoryAddress.tokenFactory
-  const web3 = new Web3('https://liberty10.shardeum.org')
+  const web3 = new Web3('https://liberty20.shardeum.org')
 
   const [tokenAddresses, setTokenAddresses] = useState([])
   const [tokensCreated, setTokensCreated] = useState(0)
@@ -56,7 +56,7 @@ const dashboard = () => {
   }, [tokensCreated])
 
   return (
-    <div className="min-h-screen bg-cyan-900 bg-fixed">
+    <div className="lg:h-screen h-full bg-cyan-900 bg-fixed">
        {/* <ToastContainer /> */}
       <Header />
       <div className=' mt-16 flex justify-evenly flex-wrap w-full'>
