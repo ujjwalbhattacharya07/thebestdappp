@@ -195,7 +195,7 @@ try{
             Want to deploy your Own ?
             <a
               className="font-semibold text-sky-700"
-              href="https://topflightapps.com/ideas/how-to-create-cryptocurrency-token/"
+              href="https://shardeum.org/blog/how-to-mint-your-cryptocurrency-on-shardeum-testnet/"
             >
               Read docs
             </a>
