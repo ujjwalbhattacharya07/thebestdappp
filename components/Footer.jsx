@@ -1,47 +1,211 @@
-import { BsGithub, BsLinkedin } from 'react-icons/bs'
-export default function Footer() {
+import { React, useState, useEffect} from 'react'
+import { ethers } from 'ethers'
+import { useWeb3React } from '@web3-react/core'
+import { connectors } from "../utils/connectors";
+import Link from 'next/link';
+import Home from '../pages/Home';
+import { MenuIcon } from '@heroicons/react/solid'
+import { FcMenu,FcCollapse } from "react-icons/fc";
+
+
+export default function Header() {
+  const { chainId, account, activate, active,library } = useWeb3React()
+  const [walletAddress, setWalletAddress] = useState('Connect Wallet')
+  const [balance, setBalance] = useState('0')
+  let [open,setOpen]=useState(false);
+
+  let Links =[
+    {name:"Home",link:"/Home"},
+    {name:"Create Token",link:"/Home"},
+    {name:"Dashboard",link:"/Dashboard"},
+
+  ];
+
+
+
+  // Button handler button for handling a
+  // request event for metamask
+  const connectWallet = () => {
+
+    console.log({chainId})
+
+    activate(connectors.injected)
+
+  }
+
+  useEffect(() => {
+    activate(connectors.injected)
+
+    if(account){
+      getbalance(account)
+   
+    }
+  
+  },[account])
+  
+
+  // getbalance function for getting a balance in
+  // a right format with help of ethers
+  const getbalance = (address) => {
+    // Requesting balance method
+    window.ethereum
+      .request({
+        method: 'eth_getBalance',
+        params: [address, 'latest'],
+      })
+      .then((balance) => {
+        // Setting balance
+        setBalance(parseInt(ethers.utils.formatEther(balance)))
+      })
+  }
+
+  // Function for getting handling all events
+  const accountChangeHandler = (account) => {
+    // Setting an address data
+    setWalletAddress(account.substring(0, 6) + '...')
+
+    // Setting a balance
+    getbalance(account)
+  }
+
+  const handleAddNetwork = async () => {
+    // Check if MetaMask is installed
+    // MetaMask injects the global API into window.ethereum
+    if (window.ethereum) {
+      try {
+        // check if the chain to connect to is installed
+        await window.ethereum.request({
+          method: 'wallet_switchEthereumChain',
+          params: [{ chainId: '0x1f90' }], // chainId must be in hexadecimal numbers
+        })
+      } catch (error) {
+        // This error code indicates that the chain has not been added to MetaMask
+        // if it is not, then install it into the user MetaMask
+        if (error.code === 4902) {
+          try {
+            await window.ethereum.request({
+              method: 'wallet_addEthereumChain',
+              params: [
+                {
+                  chainId: '0x1f90',
+                  chainName: 'Shardeum Liberty',
+                  rpcUrls: ['https://liberty20.shardeum.org'],
+                  blockExplorerUrls: [
+                    'https://explorer.liberty20.shardeum.org/',
+                  ],
+                  nativeCurrency: {
+                    symbol: 'SHM',
+                    decimals: 18,
+                  },
+                },
+              ],
+            })
+          } catch (addError) {}
+        }
+      }
+    } else {
+      // if no window.ethereum then MetaMask is not installed
+      alert(
+        'MetaMask is not installed. Please consider installing it: https://metamask.io/download.html',
+      )
+    }
+  }
+
   return (
-    <footer  className="footer-bottom dark:bg-gray-800 dark:text-gray-50 static bottom-0 ">
-      <div className="container flex flex-col p-4 mx-auto md:p-4 lg:flex-row divide-gray-400">
-        <ul className="self-center py-2 space-y-4 text-center sm:flex sm:space-y-0 sm:justify-around sm:space-x-4 lg:flex-1 lg:justify-start">
-          <li className="text-bold text-sm">Developed by Blockings69</li>
-        </ul>
-        <div className="flex flex-col justify-center pt-6 lg:pt-0">
-          <div className="flex justify-center space-x-4">
-            <a
-              rel="noopener noreferrer"
-              href="https://www.linkedin.com/in/g-pardhiv-varma-6230b2242/"
-              title="Linkedin"
-              className="flex items-center justify-center w-8 h-8 rounded-full sm:w-10 sm:h-10 dark:bg-violet-400 dark:text-gray-900"
+    <div>
+    <div className='shadow-md w-full fixed top-0 left-0 z-20'>
+      <div className='md:flex items-center justify-between bg-gray-900 py-4 md:px-10 px-7'>
+      <div className='font-bold text-2xl cursor-pointer flex items-center font-[Poppins] 
+      text-gray-800'>
+        <img src="/logo1.png" className='w-36'/>
+       
+      </div>
+      
+      <div onClick={()=>setOpen(!open)} className='text-3xl absolute right-8 top-6 cursor-pointer md:hidden'>
+      {!open?<FcMenu/>:<FcCollapse/>}
+      </div>
+
+      <ul className={`md:flex md:items-center md:pb-0 pb-12 absolute md:static bg-gray-900 md:z-auto z-[-1] left-0 w-full md:w-auto md:pl-0 pl-9 transition-all duration-500 ease-in ${open ? 'top-20 ':'top-[-490px]'}`}>
+        {
+          Links.map((link)=>(
+            <li key={link.name} className='md:ml-8 text-sm md:my-0 my-7'>
+              <Link href={link.link} className='text-gray-100 hover:text-gray-400 duration-500'><p className='text-gray-100 hover:text-gray-400 duration-500'>{link.name}</p></Link>
+            </li>
+          ))
+        }
+
+          <div classNameName="">
+            <button
+              onClick={handleAddNetwork}
+              type="button"
+              className="text-gray-900 md:ml-12 lg:ml-12 2xl:ml-12  bg-gradient-to-r from-cyan-400 via-cyan-500 to-cyan-600 hover:bg-gray-100 border border-gray-200 focus:ring-4  focus:ring-gray-100 font-medium rounded-lg text-sm h-10 ml-3 px-2 py-2 text-center  items-cente  dark:text-white "
             >
-              <BsLinkedin />
-            </a>
-            <a
-              rel="noopener noreferrer"
-              href="https://twitter.com/UjjwalBhatt07"
-              title="Twitter"
-              className="flex items-center justify-center w-8 h-8 rounded-full sm:w-10 sm:h-10 dark:bg-violet-400 dark:text-gray-900"
+              Add Shardeum Network
+            </button>
+            {account ? (
+              <button
+              disabled={account}
+              onClick={connectWallet}
+              type="button"
+              className="text-gray-900  bg-gradient-to-r from-cyan-400 via-cyan-500 to-cyan-600 hover:bg-gray-100 border border-gray-200 focus:ring-4  focus:ring-gray-100 font-medium rounded-lg text-sm h-10 ml-3 px-2 py-2 text-center  items-cente  dark:text-white "
+            >
+              {account.substring(0,6)+"..."}
+            </button>
+            ) : (
+              <button
+                onClick={connectWallet}
+                type="button"
+                className="text-gray-900  bg-gradient-to-r from-cyan-400 via-cyan-500 to-cyan-600 hover:bg-gray-100 border border-gray-200 focus:ring-4  focus:ring-gray-100 font-medium rounded-lg text-sm h-10 ml-3 px-2 py-2 text-center  items-cente  dark:text-white "
+                >
+                Connect Wallet
+              </button>
+            )}
+
+
+            {/* <button
+              type="button"
+              className="text-gray-900  invisible md:visible lg:visible 2xl:visible bg-gradient-to-r from-cyan-400 via-cyan-500 to-cyan-600 hover:bg-gray-100 border border-gray-200 focus:ring-4 focus:outline-none focus:ring-gray-100 font-medium rounded-lg text-sm h-10 ml-3 px-2 py-2 text-center inline-flex items-center dark:focus:ring-gray-600 dark:bg-gray-800  dark:text-white dark:hover:bg-gray-700 "
             >
               <svg
+                version="1.0"
                 xmlns="http://www.w3.org/2000/svg"
-                fill="currentColor"
-                viewBox="0 0 32 32"
-                className="w-4 h-4"
+                width="20px"
+                height="20px"
+                viewBox="0 0 1200.000000 1200.000000"
+                preserveAspectRatio="xMidYMid meet"
               >
-                <path d="M31.937 6.093c-1.177 0.516-2.437 0.871-3.765 1.032 1.355-0.813 2.391-2.099 2.885-3.631-1.271 0.74-2.677 1.276-4.172 1.579-1.192-1.276-2.896-2.079-4.787-2.079-3.625 0-6.563 2.937-6.563 6.557 0 0.521 0.063 1.021 0.172 1.495-5.453-0.255-10.287-2.875-13.52-6.833-0.568 0.964-0.891 2.084-0.891 3.303 0 2.281 1.161 4.281 2.916 5.457-1.073-0.031-2.083-0.328-2.968-0.817v0.079c0 3.181 2.26 5.833 5.26 6.437-0.547 0.145-1.131 0.229-1.724 0.229-0.421 0-0.823-0.041-1.224-0.115 0.844 2.604 3.26 4.5 6.14 4.557-2.239 1.755-5.077 2.801-8.135 2.801-0.521 0-1.041-0.025-1.563-0.088 2.917 1.86 6.36 2.948 10.079 2.948 12.067 0 18.661-9.995 18.661-18.651 0-0.276 0-0.557-0.021-0.839 1.287-0.917 2.401-2.079 3.281-3.396z"></path>
+                <g
+                  transform="translate(0.000000,1200.000000) scale(0.100000,-0.100000)"
+                  fill="#000000"
+                  stroke="none"
+                >
+                  <path
+                    d="M3607 7223 l-1506 -2608 882 -3 c789 -2 883 -1 893 13 7 9 486 837
+                      1065 1840 579 1004 1056 1825 1059 1825 3 0 479 -821 1058 -1824 579 -1003
+                      1058 -1831 1065 -1840 11 -15 85 -16 894 -14 l881 3 -1502 2603 c-827 1431
+                      -1505 2605 -1508 2607 -2 2 -202 -337 -443 -755 -242 -418 -442 -760 -445
+                      -760 -3 0 -200 336 -438 748 -238 411 -436 753 -441 760 -5 9 -513 -861 -1514
+                      -2595z"
+                  />
+                  <path
+                    d="M5800 6771 c-459 -97 -789 -532 -756 -997 15 -210 93 -400 235 -572
+                      97 -117 302 -244 476 -294 69 -20 103 -23 245 -23 194 0 262 15 425 95 499
+                      243 683 863 399 1343 -67 112 -221 268 -329 331 -213 124 -461 166 -695 117z"
+                  />
+                  <path
+                    d="M3864 4598 c-5 -7 -203 -350 -441 -763 l-433 -750 1505 -3 c828 -1
+                      2182 -1 3010 0 l1505 3 -439 760 -438 760 -2131 3 c-1683 2 -2132 -1 -2138
+                      -10z"
+                  />
+                </g>
               </svg>
-            </a>
-            <a
-              rel="noopener noreferrer"
-              href="https://github.com/ujjwalbhattacharya07/thebestdapp"
-              title="GitHub Repo"
-              className="flex items-center justify-center w-8 h-8 rounded-full sm:w-10 sm:h-10 dark:bg-violet-400 dark:text-gray-900"
-            >
-              <BsGithub />
-            </a>
-          </div>
-        </div>
+              {balance}
+            </button> */}
       </div>
-    </footer>
+      </ul>
+
+      </div>
+    </div>
+    </div>
   )
 }
