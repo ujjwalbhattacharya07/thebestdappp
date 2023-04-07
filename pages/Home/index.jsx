@@ -5,15 +5,10 @@ import Footer from '../../components/Footer'
 import Creator from '../../components/Creator'
 import { useEffect, useState} from 'react'
 
-
-
-
 const home = () => {
-
   const [account, setAccount] = useState()
 
   useEffect(() => {
-
     if (window.ethereum) {
       // res[0] for fetching a first wallet
       window.ethereum
@@ -22,17 +17,20 @@ const home = () => {
     } else {
       alert('install metamask extension!!')
     }
-
-
   })
-  
+
+  const styles = {
+    container: {
+      background: 'linear-gradient(180deg, #4F3BA4 0%, #4CAF50 100%)',
+    },
+  };
+
   return (
-    <div className="bg-cyan-900">
-  
+    <div style={styles.container}>
       <Header />
       <Creator/>
       <Footer/>
-  </div>
+    </div>
   )
 }
 
