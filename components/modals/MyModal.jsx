@@ -1,9 +1,36 @@
-import { Dialog, Transition } from '@headlessui/react';
-import { Fragment } from 'react';
+import { Dialog, Transition } from '@headlessui/react'
+import { Fragment, useState } from 'react'
 
-export default function MyModal({ isOpen, setIsOpen, tokenAddress, symbol, message }) {
+
+export default function MyModal({ isOpen, setIsOpen, tokenAddress, symbol, message,isMetamask}) {
   function closeModal() {
-    setIsOpen(false);
+    setIsOpen(false)
+  }
+
+  function openModal() {
+    setIsOpen(true)
+  }
+
+
+  async function handleTokenAddition() {
+    try {
+      // wasAdded is a boolean. Like any RPC method, an error may be thrown.
+      const wasAdded = await window.ethereum.request({
+        method: 'wallet_watchAsset',
+        params: {
+          type: 'ERC20', // Initially only supports ERC20, but eventually more!
+          options: {
+            address: tokenAddress, // The address that the token is at.
+            symbol: symbol, // A ticker symbol or shorthand, up to 5 chars.
+            decimals: 18, // The number of decimals in the token
+            image: '',
+          },
+        },
+      })
+    } catch (e) {
+      console.log('tnx fail!')
+      console.log(e)
+    }
   }
 
   return (
@@ -44,6 +71,15 @@ export default function MyModal({ isOpen, setIsOpen, tokenAddress, symbol, messa
                     <p className="text-sm text-gray-500">
                       {message} {tokenAddress}
                     </p>
+                   {tokenAddress&&isMetamask?<button
+                      type="button"
+                      className="inline-flex justify-center rounded-md border border-transparent bg-blue-100 px-4 py-2 text-sm font-medium text-blue-900 hover:bg-blue-200 focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2"
+                      onClick={handleTokenAddition}
+                    >
+                          Add To Metamsk
+                    </button>:''
+
+                   } 
                   </div>
 
                   <div className="mt-4">
@@ -62,5 +98,5 @@ export default function MyModal({ isOpen, setIsOpen, tokenAddress, symbol, messa
         </Dialog>
       </Transition>
     </>
-  );
+  )
 }
